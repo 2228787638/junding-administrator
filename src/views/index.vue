@@ -10,6 +10,7 @@
       <el-button type="warning">警告按钮</el-button>
       <el-button type="danger">危险按钮</el-button>
     </el-row>
+    <router-link :to="{ name: 'login'}">Login</router-link>
   </div>
 </template>
 
