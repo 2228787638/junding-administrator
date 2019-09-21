@@ -1,87 +1,97 @@
 <template>
-  <div>
-    <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
-      <h3 class="login-title">欢迎登录</h3>
-      <el-form-item label="账号" prop="username">
-        <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
+  <div class="login-container">
+    <el-form :model="ruleForm2" :rules="rules2"
+             status-icon
+             ref="ruleForm2"
+             label-position="left"
+             label-width="0px"
+             class="demo-ruleForm login-page">
+      <h3 class="title">系统登录</h3>
+      <el-form-item prop="username">
+        <el-input type="text"
+                  v-model="ruleForm2.username"
+                  auto-complete="off"
+                  placeholder="用户名"
+        ></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+      <el-form-item prop="password">
+        <el-input type="password"
+                  v-model="ruleForm2.password"
+                  auto-complete="off"
+                  placeholder="密码"
+        ></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
+      <el-checkbox
+        v-model="checked"
+        class="rememberme"
+      >记住密码
+      </el-checkbox>
+      <el-form-item style="width:100%;">
+        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
       </el-form-item>
     </el-form>
-
-    <el-dialog
-      title="温馨提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <span>请输入账号和密码</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import {login} from '../api/authorization'
+import {commonStore} from '../store/modules/common'
+
 export default {
-  name: 'Login',
   data () {
     return {
-      form: {
-        username: '',
-        password: ''
+      logining: false,
+      ruleForm2: {
+        username: 'admin',
+        password: '123456'
       },
-
-      // 表单验证，需要在 el-form-item 元素中增加 prop 属性
-      rules: {
-        username: [
-          {required: true, message: '账号不可为空', trigger: 'blur'}
-        ],
-        password: [
-          {required: true, message: '密码不可为空', trigger: 'blur'}
-        ]
+      rules2: {
+        username: [{required: true, message: 'please enter your account', trigger: 'blur'}],
+        password: [{required: true, message: 'enter your password', trigger: 'blur'}]
       },
-
-      // 对话框显示和隐藏
-      dialogVisible: false
+      checked: false
     }
   },
   methods: {
-    onSubmit (formName) {
-      // 为表单绑定验证功能
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
-          this.$router.push('/main')
-        } else {
-          this.dialogVisible = true
-          return false
+    ...mapActions(['login']),
+    handleSubmit (event) {
+      this.$refs.ruleForm2.validate(async (valid) => {
+        const response = await login(this.ruleForm2.username, this.ruleForm2.password)
+        const token = response.data
+        commonStore.commit('setToken', token)
+        const retCode = response.retCode
+        if (retCode === 200) {
+          await this.$router.push({name: 'index'})
         }
       })
     }
+  },
+  computed: {
+    ...mapState(['commonStore'])
   }
 }
 </script>
 
 <style scoped>
-  .login-box {
-    border: 1px solid #DCDFE6;
-    width: 350px;
-    margin: 180px auto;
-    padding: 35px 35px 15px 35px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    box-shadow: 0 0 25px #909399;
+  .login-container {
+    width: 100%;
+    height: 100%;
   }
 
-  .login-title {
-    text-align: center;
-    margin: 0 auto 40px auto;
-    color: #303133;
+  .login-page {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin: 180px auto;
+    width: 350px;
+    padding: 35px 35px 15px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
+
+  label.el-checkbox.rememberme {
+    margin: 0px 0px 15px;
+    text-align: left;
   }
 </style>

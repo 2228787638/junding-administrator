@@ -1,8 +1,8 @@
 import axios from 'axios'
-import common from '../store/modules/common'
+import {commonStore} from '../store/modules/common'
 
-axios.defaults.baseURL = 'https://ygfygf.cn'
-axios.defaults.headers.common['token'] = common.state.token
+axios.defaults.baseURL = 'http://ygfygf.cn'
+axios.defaults.headers.common['token'] = commonStore.state.token
 axios.defaults.timeout = 5000
 
 axios.interceptors.response.use(

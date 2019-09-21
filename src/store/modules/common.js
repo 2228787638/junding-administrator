@@ -1,29 +1,24 @@
-import {login} from '../../api/authorization'
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-const state = {
-  token: '',
-  username: '',
-  password: ''
-}
-const getters = {}
-const actions = {
-  async login ({commit}) {
-    commit('setToken', await login())
-  }
-}
-const mutations = {
-  setUsernameAndPassword (state, username, password) {
-    state.username = username
-    state.password = password
+Vue.use(Vuex)
+
+export const commonStore = new Vuex.Store({
+
+  state: {
+    token: '',
+    username: '',
+    password: ''
   },
-  setToken (state, token) {
-    state.token = token
+  actions: {},
+  getters: {},
+  mutations: {
+    setUsernameAndPassword (state, username, password) {
+      state.username = username
+      state.password = password
+    },
+    setToken (state, token) {
+      state.token = token
+    }
   }
-}
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
-}
+})

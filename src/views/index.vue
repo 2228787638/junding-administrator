@@ -16,6 +16,7 @@
 
 <script>
 import Header from '../components/Header'
+
 export default {
   name: '',
   components: {Header},
@@ -24,8 +25,7 @@ export default {
       msg: 'Hello Vue.js'
     }
   },
-  component: {
-  }
+  component: {}
 }
 </script>
 <style scoped>

@@ -20,13 +20,13 @@
           <el-menu-item index="3-2">查看房源</el-menu-item>
         </el-submenu>
         <el-menu-item index="4">收入</el-menu-item>
+        <el-button class='a'>登录</el-button>
       </el-menu>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'header',
   data () {
     return {
       activeIndex: '1',
@@ -42,5 +42,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .a{
+    margin-right: 10px;
+  }
 </style>
