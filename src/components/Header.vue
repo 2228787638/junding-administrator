@@ -20,9 +20,9 @@
           <el-menu-item index="3-2">查看房源</el-menu-item>
         </el-submenu>
         <el-menu-item index="4">收入</el-menu-item>
-        <el-menu-item index="5" class='a'>
+        <el-menu-item index="5" style='float: right;'>
           <el-button >登录</el-button></el-menu-item>
-          </el-menu>
+        </el-menu>
     </div>
 </template>
 
@@ -43,7 +43,4 @@ export default {
 </script>
 
 <style scoped>
-  .a{
-   float: right;
-  }
 </style>

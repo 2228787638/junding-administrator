@@ -35,8 +35,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import {login} from '../api/authorization'
-import {commonStore} from '../store/modules/common'
 
 export default {
   data () {
@@ -53,22 +51,22 @@ export default {
       checked: false
     }
   },
+  computed: {
+    ...mapState(['common'])
+  },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions('common', ['login']),
     handleSubmit (event) {
-      this.$refs.ruleForm2.validate(async (valid) => {
-        const response = await login(this.ruleForm2.username, this.ruleForm2.password)
-        const token = response.data
-        commonStore.commit('setToken', token)
-        const retCode = response.retCode
+      this.$refs.ruleForm2.validate((valid) => {
+        const retCode = this.login(this.ruleForm2)
+        console.log(retCode)
         if (retCode === 200) {
-          await this.$router.push({name: 'index'})
+          this.$router.push({name: 'index'})
+        } else {
+          alert('账号或者密码错误！')
         }
       })
     }
-  },
-  computed: {
-    ...mapState(['commonStore'])
   }
 }
 </script>
