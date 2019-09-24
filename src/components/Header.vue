@@ -20,8 +20,13 @@
           <el-menu-item index="3-2">查看房源</el-menu-item>
         </el-submenu>
         <el-menu-item index="4">收入</el-menu-item>
-        <el-menu-item index="5" style='float: right;'>
-          <el-button >登录</el-button></el-menu-item>
+        <el-submenu index="5">
+          <template slot="title">设置</template>
+          <el-menu-item index="5-1">广告</el-menu-item>
+        </el-submenu>
+        <el-menu-item index="6">客服</el-menu-item>
+        <el-menu-item index="7" style='float: right;'>
+          <el-button ><router-link to = '/login'>登录</router-link></el-button></el-menu-item>
         </el-menu>
     </div>
 </template>

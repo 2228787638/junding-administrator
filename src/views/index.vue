@@ -1,16 +1,24 @@
 <template>
   <div>
     <Header></Header>
-    <div>{{msg}}</div>
-    <el-row>
-      <el-button>默认按钮</el-button>
-      <el-button type="primary">主要按钮</el-button>
-      <el-button type="success">成功按钮</el-button>
-      <el-button type="info">信息按钮</el-button>
-      <el-button type="warning">警告按钮</el-button>
-      <el-button type="danger">危险按钮</el-button>
-    </el-row>
-    <router-link :to="{ name: 'login'}">Login</router-link>
+    <h1>君鼎房地产</h1>
+    <vue-particles color="#7b7d7d"
+                   :particleOpacity="0.7"
+                   :particlesNumber="60"
+                   shapeType="circle"
+                   :particleSize="4"
+                   linesColor="#203c77"
+                   :linesWidth="1"
+                   :lineLinked="true"
+                   :lineOpacity="0.4"
+                   :linesDistance="100"
+                   :moveSpeed="2"
+                   :hoverEffect="true"
+                   hoverMode="grab"
+                   :clickEffect="true"
+                   clickMode="push"
+                   class="lizi">
+    </vue-particles>
   </div>
 </template>
 

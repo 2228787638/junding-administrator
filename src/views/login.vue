@@ -57,8 +57,8 @@ export default {
   methods: {
     ...mapActions('common', ['login']),
     handleSubmit (event) {
-      this.$refs.ruleForm2.validate((valid) => {
-        const retCode = this.login(this.ruleForm2)
+      this.$refs.ruleForm2.validate(async (valid) => {
+        const retCode = await this.login(this.ruleForm2)
         console.log(retCode)
         if (retCode === 200) {
           this.$router.push({name: 'index'})
