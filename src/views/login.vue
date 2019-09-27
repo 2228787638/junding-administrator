@@ -63,7 +63,8 @@ export default {
         if (retCode === 200) {
           this.$router.push({name: 'index'})
         } else {
-          alert('账号或者密码错误！')
+          this.$alert('账号或者密码错误', '登陆失败')
+          // alert('账号或者密码错误！')
         }
       })
     }

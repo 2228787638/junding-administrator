@@ -3,11 +3,13 @@
       <el-menu
         :default-active="activeIndex2"
         class="el-menu-demo"
-        mode="horizontal"
+        mode=" vertical"
         @select="handleSelect"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b">
+        active-text-color="#ffd04b"
+        style="min-height: 100vh;">
+        <el-menu-item></el-menu-item>
         <el-menu-item index="1">首页</el-menu-item>
         <el-submenu index="2">
           <template slot="title">用户列表</template>
