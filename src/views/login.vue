@@ -34,42 +34,42 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+  import {mapState, mapActions} from 'vuex'
 
-export default {
-  data () {
-    return {
-      logining: false,
-      ruleForm2: {
-        username: 'admin',
-        password: '123456'
-      },
-      rules2: {
-        username: [{required: true, message: 'please enter your account', trigger: 'blur'}],
-        password: [{required: true, message: 'enter your password', trigger: 'blur'}]
-      },
-      checked: false
-    }
-  },
-  computed: {
-    ...mapState(['common'])
-  },
-  methods: {
-    ...mapActions('common', ['login']),
-    handleSubmit (event) {
-      this.$refs.ruleForm2.validate(async (valid) => {
-        const retCode = await this.login(this.ruleForm2)
-        console.log(retCode)
-        if (retCode === 200) {
-          this.$router.push({name: 'index'})
-        } else {
-          this.$alert('账号或者密码错误', '登陆失败')
-          // alert('账号或者密码错误！')
-        }
-      })
+  export default {
+    data () {
+      return {
+        logining: false,
+        ruleForm2: {
+          username: '',
+          password: ''
+        },
+        rules2: {
+          username: [{required: true, message: 'please enter your account', trigger: 'blur'}],
+          password: [{required: true, message: 'enter your password', trigger: 'blur'}]
+        },
+        checked: false
+      }
+    },
+    computed: {
+      ...mapState(['common'])
+    },
+    methods: {
+      ...mapActions('common', ['login']),
+      handleSubmit (event) {
+        this.$refs.ruleForm2.validate(async (valid) => {
+          const retCode = await this.login(this.ruleForm2)
+          console.log(retCode)
+          if (retCode === 200) {
+            this.$message('登录成功！')
+            this.$router.push({name: 'index'})
+          } else {
+            this.$alert('账号或者密码错误', '登陆失败')
+          }
+        })
+      }
     }
   }
-}
 </script>
 
 <style scoped>

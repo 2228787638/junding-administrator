@@ -1,32 +1,38 @@
-import {login} from '../../api/authorization'
+import {getCurrentUser, login} from '../../api/getData'
 
 export default {
   namespaced: true,
   state: {
     token: '',
     username: '',
-    password: ''
+    role: ''
   },
   actions: {
     async login ({commit}, ruleForm2) {
       const response = await login(ruleForm2.username, ruleForm2.password)
-      const retCode = response.retCode
-      if (retCode === 200) {
-        const token = response.data
-        commit('setToken', token)
-        localStorage.setItem('token', token)
-      }
-      return retCode
+      const token = response.data
+      commit('setToken', token)
+      localStorage.setItem('token', token)
+      return response.retCode
+    },
+    async getCurrentUser ({commit}) {
+      const response = await getCurrentUser()
+      const responseData = response.data
+      commit('setCurrentUserInfo', responseData.username, responseData.role)
     }
   },
   getters: {},
   mutations: {
-    setUsernameAndPassword (state, username, password) {
+    setCurrentUserInfo (state, username, role) {
       state.username = username
-      state.password = password
+      state.role = role
     },
     setToken (state, token) {
       state.token = token
+    },
+    loginOut (state) {
+      state.token = ''
+      localStorage.setItem('token', '')
     }
   }
 }

@@ -37,19 +37,19 @@
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar'
-import Topbar from '../components/Topbar'
+  import Sidebar from '../components/Sidebar'
+  import Topbar from '../components/Topbar'
 
-export default {
-  name: '',
-  components: { Sidebar, Topbar },
-  data () {
-    return {
-      msg: 'Hello Vue.js'
-    }
-  },
-  component: {}
-}
+  export default {
+    name: '',
+    components: {Sidebar, Topbar},
+    data () {
+      return {
+        msg: 'Hello Vue.js'
+      }
+    },
+    component: {}
+  }
 </script>
 <style scoped>
 </style>
