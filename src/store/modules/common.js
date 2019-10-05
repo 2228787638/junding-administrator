@@ -10,15 +10,19 @@ export default {
   actions: {
     async login ({commit}, ruleForm2) {
       const response = await login(ruleForm2.username, ruleForm2.password)
-      const token = response.data
-      commit('setToken', token)
-      localStorage.setItem('token', token)
-      return response.retCode
+      if (response.retCode === 200) {
+        const token = response.data
+        commit('setToken', token)
+        localStorage.setItem('token', token)
+        return response.retCode
+      }
     },
     async getCurrentUser ({commit}) {
       const response = await getCurrentUser()
       const responseData = response.data
-      commit('setCurrentUserInfo', responseData.username, responseData.role)
+      if (response.retCode === 200) {
+        commit('setCurrentUserInfo', responseData.username, responseData.role)
+      }
     }
   },
   getters: {},
