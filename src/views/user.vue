@@ -56,7 +56,8 @@
     <el-pagination
       background
       layout="prev, pager, next"
-      :total="1000">
+      :total="total*10"
+      @current-change="current_change">
     </el-pagination>
   </div>
 </template>
@@ -67,13 +68,21 @@
   export default {
     data () {
       return {
-        tableData: []
+        tableData: [],
+        total: 0,
+        pagesize: 1,
+        currentPage: 1
       }
     },
     methods: {
       async getUserInfos () {
-        let userInfos = await listUserInfos()
+        let userInfos = await listUserInfos(this.currentPage - 1, this.pagesize)
         this.tableData = userInfos.data.content
+        this.total = userInfos.data.totalPages
+      },
+      current_change: function (currentPage) {
+        this.currentPage = currentPage
+        this.getUserInfos()
       }
     },
     mounted () {

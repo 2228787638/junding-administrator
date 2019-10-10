@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import Router from '../router'
-import store from '../store'
 
 axios.defaults.baseURL = 'http://ygfygf.cn'
 // axios.defaults.headers.common['token'] = localStorage.getItem('token')
@@ -23,11 +22,10 @@ axios.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if (store.state.common.token) {
+    if (localStorage.getItem('token')) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      console.log('没token')
       config.headers['token'] = localStorage.getItem('token')
     }
     return config

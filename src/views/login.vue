@@ -59,7 +59,6 @@
       handleSubmit (event) {
         this.$refs.ruleForm2.validate(async (valid) => {
           const retCode = await this.login(this.ruleForm2)
-          console.log(retCode)
           if (retCode === 200) {
             this.$message('登录成功！')
             this.$router.push({name: 'index'})

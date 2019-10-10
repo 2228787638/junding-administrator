@@ -13,4 +13,4 @@ export const login = (username, password) => axios.post('/login', {username, pas
  */
 export const getCurrentUser = () => axios.get('/getCurrentUser', {})
 
-export const listUserInfos = () => axios.get('/users/', {})
+export const listUserInfos = (page, size) => axios.get('/users/', {params: {page: page, size: size}})
