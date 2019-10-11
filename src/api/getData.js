@@ -12,5 +12,16 @@ export const login = (username, password) => axios.post('/login', {username, pas
  * @returns {Promise<AxiosResponse<T>>}
  */
 export const getCurrentUser = () => axios.get('/getCurrentUser', {})
-
+/**
+ * 获取用户列表（分页）
+ * @param page 页数
+ * @param size 页码大小
+ * @returns {*}
+ */
 export const listUserInfos = (page, size) => axios.get('/users/', {params: {page: page, size: size}})
+/**
+ * 根据id删除user
+ * @param id 用户id
+ * @returns {*}
+ */
+export const deleteUserInfo = (id) => axios.delete(`/users/${id}`, {params: {id: id}})

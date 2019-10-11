@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>当前用户总数：<el-tag>{{totalElements}}</el-tag></p>
     <el-table
       :data="tableData"
       border
@@ -48,41 +49,53 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除
+            @click="handleDelete(scope.row.id)">删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="total*10"
-      @current-change="current_change">
-    </el-pagination>
+    <p>
+      <el-pagination
+        class="centerClass"
+        background
+        layout="prev, pager, next"
+        :page-count="totalPages"
+        @current-change="current_change">
+      </el-pagination>
+    </p>
   </div>
 </template>
 
 <script>
-  import {listUserInfos} from '../api/getData'
+  import {deleteUserInfo, listUserInfos} from '../api/getData'
 
   export default {
     data () {
       return {
         tableData: [],
-        total: 0,
-        pagesize: 1,
-        currentPage: 1
+        totalPages: 0,
+        pagesize: 10,
+        currentPage: 1,
+        totalElements: 0
       }
     },
     methods: {
       async getUserInfos () {
         let userInfos = await listUserInfos(this.currentPage - 1, this.pagesize)
         this.tableData = userInfos.data.content
-        this.total = userInfos.data.totalPages
+        this.totalPages = userInfos.data.totalPages
+        this.totalElements = userInfos.data.totalElements
       },
-      current_change: function (currentPage) {
+      current_change (currentPage) {
         this.currentPage = currentPage
         this.getUserInfos()
+      },
+      async handleDelete (id) {
+        let result = await deleteUserInfo(id)
+        if (result.retCode === 200) {
+          this.$message('删除成功！')
+          this.getUserInfos()
+        }
       }
     },
     mounted () {
@@ -90,3 +103,8 @@
     }
   }
 </script>
+<style>
+  .centerClass {
+    text-align: center;
+  }
+</style>

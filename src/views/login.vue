@@ -72,6 +72,9 @@
 </script>
 
 <style scoped>
+  div {
+    text-align: center;
+  }
   .login-container {
     width: 100%;
     height: 100%;
