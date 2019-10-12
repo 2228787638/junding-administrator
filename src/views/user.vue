@@ -66,10 +66,10 @@
 
     <el-dialog title="编辑用户" :visible.sync="dialogFormVisible">
       <el-form :model="userInfo">
-        <el-form-item label="用户名" label-width="120px">
+        <el-form-item label="用户名" label-width="120px" class="form-input">
           <el-input v-model="userInfo.user.username" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="昵称" label-width="120px">
+        <el-form-item label="昵称" label-width="120px" class="form-input">
           <el-input v-model="userInfo.nickname" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别" label-width="120px">
@@ -78,7 +78,7 @@
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="地址" label-width="120px">
+        <el-form-item label="地址" label-width="120px" class="form-input">
           <el-input v-model="userInfo.address" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -147,5 +147,8 @@
 <style>
   .centerClass {
     text-align: center;
+  }
+  .form-input{
+    width: 70%;
   }
 </style>
