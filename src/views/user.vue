@@ -6,45 +6,45 @@
       border
       style="width: 100%">
       <el-table-column
+        label="头像"
+        width="180">
+        <template slot-scope="scope">
+          <span><img :src="scope.row.avatar"/></span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="用户名"
         width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.user.username }}</span>
+          <span>{{ scope.row.user.username }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="昵称"
         width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.nickname }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="头像"
-        width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px"><img :src="scope.row.avatar"/></span>
+          <span>{{ scope.row.nickname }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="性别"
         width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{scope.row.sex}}</span>
+          <span>{{scope.row.sex}}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="地址"
         width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.address }}</span>
+          <span>{{ scope.row.address }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑
+            @click="edit(scope.row.id)">编辑
           </el-button>
           <el-button
             size="mini"
@@ -63,11 +63,35 @@
         @current-change="current_change">
       </el-pagination>
     </p>
+
+    <el-dialog title="编辑用户" :visible.sync="dialogFormVisible">
+      <el-form :model="userInfo">
+        <el-form-item label="用户名" label-width="120px">
+          <el-input v-model="userInfo.user.username" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称" label-width="120px">
+          <el-input v-model="userInfo.nickname" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" label-width="120px">
+          <el-select v-model="userInfo.sex" placeholder="请选择性别">
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="地址" label-width="120px">
+          <el-input v-model="userInfo.address" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-  import {deleteUserInfo, listUserInfos} from '../api/getData'
+  import {deleteUserInfo, getUserInfoById, listUserInfos} from '../api/getData'
 
   export default {
     data () {
@@ -76,7 +100,11 @@
         totalPages: 0,
         pagesize: 10,
         currentPage: 1,
-        totalElements: 0
+        totalElements: 0,
+        dialogFormVisible: false,
+        userInfo: {
+          user: {}
+        }
       }
     },
     methods: {
@@ -93,9 +121,22 @@
       async handleDelete (id) {
         let result = await deleteUserInfo(id)
         if (result.retCode === 200) {
-          this.$message('删除成功！')
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          })
           this.getUserInfos()
         }
+      },
+      async getUserInfoById (id) {
+        let result = await getUserInfoById(id)
+        if (result.retCode === 200) {
+          this.userInfo = result.data
+        }
+      },
+      edit (id) {
+        this.dialogFormVisible = true
+        this.getUserInfoById(id)
       }
     },
     mounted () {

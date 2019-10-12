@@ -25,3 +25,9 @@ export const listUserInfos = (page, size) => axios.get('/users/', {params: {page
  * @returns {*}
  */
 export const deleteUserInfo = (id) => axios.delete(`/users/${id}`, {params: {id: id}})
+/**
+ * 根据id获取用户信息
+ * @param id 用户id
+ * @returns {*}
+ */
+export const getUserInfoById = (id) => axios.get(`/users/${id}`, {params: {id: id}})

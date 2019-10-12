@@ -60,7 +60,10 @@
         this.$refs.ruleForm2.validate(async (valid) => {
           const retCode = await this.login(this.ruleForm2)
           if (retCode === 200) {
-            this.$message('登录成功！')
+            this.$message({
+              message: '登录成功！',
+              type: 'success'
+            })
             this.$router.push({name: 'index'})
           } else {
             this.$alert('账号或者密码错误', '登陆失败')
