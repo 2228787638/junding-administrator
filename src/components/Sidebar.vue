@@ -14,6 +14,11 @@
       <el-menu-item index="main">首页</el-menu-item>
       <el-menu-item index="user">用户管理</el-menu-item>
       <el-menu-item index="reservation">预约订单管理</el-menu-item>
+      <el-submenu index="house-resource">
+        <template slot="title">房源管理</template>
+         <el-menu-item index="houses">房源列表</el-menu-item>
+         <el-menu-item index="addHouse">新增房源</el-menu-item>
+      </el-submenu>
       <el-submenu index="setting">
         <template slot="title">设置</template>
         <el-menu-item index="ad-setting">广告设置</el-menu-item>

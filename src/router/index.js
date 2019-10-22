@@ -4,6 +4,8 @@ import index from '../views/index'
 import login from '../views/login'
 import user from '../views/user'
 import main from '../views/main'
+import houses from '../views/houses'
+import addHouse from '../views/addHouse'
 
 Vue.use(Router)
 
@@ -24,6 +26,16 @@ export default new Router({
           path: 'user',
           name: 'user',
           component: user
+        },
+        {
+          path: 'houses',
+          name: 'houses',
+          component: houses
+        },
+        {
+          path: 'addHouse',
+          name: 'addHouse',
+          component: addHouse
         }
       ]
     },
